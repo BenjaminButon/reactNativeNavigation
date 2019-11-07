@@ -9,21 +9,52 @@ import {registerScreens} from './src/Navigation';
 
 // AppRegistry.registerComponent(appName, () => App);
 registerScreens();
-Navigation.events().registerAppLaunchedListener(() => {
+
+function pushTabs() {
+  Navigation.setDefaultOptions({
+    animations: {
+      push: {
+        enabled: true,
+      },
+    },
+    statusBar: {
+      style: 'light',
+    },
+    topBar: {
+      title: {
+        component: {
+          name: 'TopBar',
+        },
+      },
+    },
+    layout: {
+      orientation: ['portrait'],
+    },
+  });
+
   Navigation.setRoot({
     root: {
       bottomTabs: {
+        options: {
+          bottomTabs: {
+            currentTabIndex: 3,
+          },
+        },
         children: [
           {
             stack: {
               children: [
                 {
                   component: {
+                    id: 'tab1',
                     name: 'Tab1',
                     options: {
                       topBar: {
+                        background: {color: 'black'},
                         title: {
-                          text: 'Tab 1',
+                          component: {
+                            name: 'TopBar',
+                          },
                         },
                       },
                     },
@@ -32,8 +63,9 @@ Navigation.events().registerAppLaunchedListener(() => {
               ],
               options: {
                 bottomTab: {
-                  icon: require('./src/assets/ic_tab_home.png'),
+                  icon: require('./src/assets/notifications.png'),
                   text: 'Tab1',
+                  selectedIconColor: 'orange',
                 },
               },
             },
@@ -43,11 +75,45 @@ Navigation.events().registerAppLaunchedListener(() => {
               children: [
                 {
                   component: {
+                    id: 'tab2',
                     name: 'Tab2',
                     options: {
                       topBar: {
+                        background: {color: 'black'},
                         title: {
-                          text: 'Tab 2',
+                          component: {
+                            name: 'TopBar',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+
+              options: {
+                bottomTab: {
+                  icon: require('./src/assets/ic_tab_home.png'),
+                  text: 'Tab2',
+                  selectedIconColor: 'orange',
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    id: 'tab3',
+                    name: 'Tab3',
+                    options: {
+                      topBar: {
+                        background: {color: 'black'},
+                        title: {
+                          component: {
+                            name: 'TopBar',
+                          },
                         },
                       },
                     },
@@ -57,7 +123,7 @@ Navigation.events().registerAppLaunchedListener(() => {
               options: {
                 bottomTab: {
                   icon: require('./src/assets/ic_tab_home.png'),
-                  text: 'Tab2',
+                  text: 'Tab3',
                 },
               },
             },
@@ -66,4 +132,5 @@ Navigation.events().registerAppLaunchedListener(() => {
       },
     },
   });
-});
+}
+Navigation.events().registerAppLaunchedListener(() => pushTabs());
